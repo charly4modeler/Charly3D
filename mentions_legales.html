@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-key="legal-meta-title">Mentions Légales | C3D</title>
+    <link rel="icon" type="image/svg+xml" href="C:\Users\Charly\Desktop\Website\favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#0A0A0A',
+                        darkCard: '#111111',
+                        accentGreen: '#10B981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-300 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <header class="w-full max-w-4xl mx-auto px-6 pt-8 flex justify-between items-center">
+        <a href="index.html" data-key="legal-back" class="inline-flex items-center text-accentGreen hover:underline text-sm">
+            ← Retour au site
+        </a>
+        
+        <select id="lang-selector" class="bg-transparent border border-neutral-800 rounded px-2 py-1 text-xs text-gray-400 font-medium focus:outline-none focus:border-accentGreen cursor-pointer">
+            <option value="fr" class="bg-darkBg text-white">FR</option>
+            <option value="en" class="bg-darkBg text-white">EN</option>
+        </select>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow">
+        <h1 data-key="legal-title" class="text-3xl md:text-4xl font-bold text-white mb-2">Mentions Légales</h1>
+        <p data-key="legal-date" class="text-xs text-gray-500 uppercase tracking-wider mb-12">En vigueur le 28 mai 2026</p>
+
+        <div class="space-y-8 text-sm font-light leading-relaxed">
+            
+            <section class="border-l-2 border-accentGreen pl-4">
+                <h2 data-key="legal-sec1-title" class="text-lg font-semibold text-white mb-2">1. Édition du site</h2>
+                <p data-key="legal-sec1-desc">
+                    Le site internet <strong>C3D</strong> est édité par l'entreprise individuelle de Charly (Artisan Numérique), domiciliée à Paris, France.
+                    <br>Contact email : <strong>Charly4Modeler@gmail.com</strong>
+                </p>
+            </section>
+
+            <section class="border-l-2 border-neutral-800 pl-4">
+                <h2 data-key="legal-sec2-title" class="text-lg font-semibold text-white mb-2">2. Hébergement</h2>
+                <p data-key="legal-sec2-desc">
+                    Le site est hébergé par une infrastructure web moderne (à compléter avec votre hébergeur final, ex: GitHub Pages, Netlify, Hostinger...).
+                </p>
+            </section>
+
+            <section class="border-l-2 border-neutral-800 pl-4">
+                <h2 data-key="legal-sec3-title" class="text-lg font-semibold text-white mb-2">3. Propriété intellectuelle</h2>
+                <p data-key="legal-sec3-desc">
+                    L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques.
+                    <br><br>
+                    Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de l'auteur.
+                </p>
+            </section>
+
+            <section class="border-l-2 border-neutral-800 pl-4">
+                <h2 data-key="legal-sec4-title" class="text-lg font-semibold text-white mb-2">4. Responsabilité</h2>
+                <p data-key="legal-sec4-desc">
+                    L'éditeur s'efforce d'assurer au mieux de ses possibilités l'exactitude et la mise à jour des informations diffusées sur ce site. Toutefois, il ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition. Les liens externes présents sur le site ne sauraient engager la responsabilité de l'éditeur quant à leur contenu.
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <footer id="footer-text" class="border-t border-neutral-900 py-8 text-center text-xs text-gray-600">
+        C3D © 2026. Tous droits réservés.
+    </footer>
+
+    <script>
+        const translations = {
+            fr: {
+                "legal-meta-title": "Mentions Légales | C3D",
+                "legal-back": "← Retour au site",
+                "legal-title": "Mentions Légales",
+                "legal-date": "En vigueur le 28 mai 2026",
+                "legal-sec1-title": "1. Édition du site",
+                "legal-sec1-desc": "Le site internet <strong>C3D</strong> est édité par l'entreprise individuelle de Charly (Artisan Numérique), domiciliée à Paris, France.<br>Contact email : <strong>Charly4Modeler@gmail.com</strong>",
+                "legal-sec2-title": "2. Hébergement",
+                "legal-sec2-desc": "Le site est hébergé par une infrastructure web moderne (à compléter avec votre hébergeur final, ex: GitHub Pages, Netlify, Hostinger...).",
+                "legal-sec3-title": "3. Propriété intellectuelle",
+                "legal-sec3-desc": "L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques.<br><br>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de l'auteur.",
+                "legal-sec4-title": "4. Responsabilité",
+                "legal-sec4-desc": "L'éditeur s'efforce d'assurer au mieux de ses possibilités l'exactitude et la mise à jour des informations diffusées sur ce site. Toutefois, il ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition. Les liens externes présents sur le site ne sauraient engager la responsabilité de l'éditeur quant à leur contenu.",
+                "footer-text": "C3D © 2026. Tous droits réservés."
+            },
+            en: {
+                "legal-meta-title": "Legal Notice | C3D",
+                "legal-back": "← Back to site",
+                "legal-title": "Legal Notice",
+                "legal-date": "In force since May 28, 2026",
+                "legal-sec1-title": "1. Site Edition",
+                "legal-sec1-desc": "The website <strong>C3D</strong> is published by Charly's sole proprietorship (Digital Craftsman), located in Paris, France.<br>Contact email: <strong>Charly4Modeler@gmail.com</strong>",
+                "legal-sec2-title": "2. Hosting",
+                "legal-sec2-desc": "The site is hosted by a modern web infrastructure (to be filled in with your final host, e.g., GitHub Pages, Netlify, Hostinger...).",
+                "legal-sec3-title": "3. Intellectual Property",
+                "legal-sec3-desc": "The entirety of this site is covered by French and international legislation on copyright and intellectual property. All reproduction rights are reserved, including for downloadable documents and iconographic and photographic representations.<br><br>Any reproduction, representation, modification, publication, adaptation of all or part of the elements of the site, regardless of the medium or process used, is prohibited without prior written authorization from the author.",
+                "legal-sec4-title": "4. Liability",
+                "legal-sec4-desc": "The publisher makes every effort to ensure to the best of their abilities the accuracy and updating of the information distributed on this site. However, they cannot guarantee the accuracy, precision, or completeness of the information made available. External links present on the site do not engage the publisher's responsibility regarding their content.",
+                "footer-text": "C3D © 2026. All rights reserved."
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.getElementById('lang-selector').value = lang;
+
+            document.querySelectorAll('[data-key]').forEach(elem => {
+                const key = elem.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    elem.innerHTML = translations[lang][key];
+                }
+            });
+            
+            document.title = translations[lang]['legal-meta-title'];
+            document.getElementById('footer-text').innerText = translations[lang]['footer-text'];
+        }
+
+        document.getElementById('lang-selector').addEventListener('change', (e) => changeLanguage(e.target.value));
+    </script>
+</body>
+</html>

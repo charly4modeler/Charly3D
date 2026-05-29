@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-key="priv-meta-title">Politique de Confidentialité | C3D</title>
+    <link rel="icon" type="image/svg+xml" href="C:\Users\Charly\Desktop\Website\favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#0A0A0A',
+                        darkCard: '#111111',
+                        accentGreen: '#10B981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-300 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <header class="w-full max-w-4xl mx-auto px-6 pt-8 flex justify-between items-center">
+        <a href="index.html" data-key="priv-back" class="inline-flex items-center text-accentGreen hover:underline text-sm">
+            ← Retour au site
+        </a>
+        
+        <select id="lang-selector" class="bg-transparent border border-neutral-800 rounded px-2 py-1 text-xs text-gray-400 font-medium focus:outline-none focus:border-accentGreen cursor-pointer">
+            <option value="fr" class="bg-darkBg text-white">FR</option>
+            <option value="en" class="bg-darkBg text-white">EN</option>
+        </select>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12 w-full flex-grow">
+        <h1 data-key="priv-title" class="text-3xl md:text-4xl font-bold text-white mb-2">Politique de Confidentialité</h1>
+        <p data-key="priv-date" class="text-xs text-gray-500 uppercase tracking-wider mb-12">Dernière mise à jour : 28 mai 2026</p>
+
+        <div class="space-y-8 text-sm font-light leading-relaxed">
+            
+            <section class="border-l-2 border-accentGreen pl-4">
+                <h2 data-key="priv-sec1-title" class="text-lg font-semibold text-white mb-2">1. Données collectées</h2>
+                <p data-key="priv-sec1-desc">
+                    Lorsque vous utilisez le formulaire d'avis de notre site, les informations suivantes peuvent être collectées :
+                </p>
+                <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-400">
+                    <li data-key="priv-li1">Nom complet / Nom d'entreprise</li>
+                    <li data-key="priv-li2">Note et texte de commentaire (pour les avis)</li>
+                </ul>
+            </section>
+
+            <section class="border-l-2 border-neutral-800 pl-4">
+                <h2 data-key="priv-sec2-title" class="text-lg font-semibold text-white mb-2">2. Utilisation des données</h2>
+                <p data-key="priv-sec2-desc1">
+                    Les données collectées sont utilisées exclusivement pour :
+                </p>
+                <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-400">
+                    <li data-key="priv-li3">Afficher vos avis clients sur le site internet (avec votre consentement).</li>
+                </ul>
+                <p data-key="priv-sec2-desc2" class="mt-2">
+                    En aucun cas vos données ne seront vendues, échangées ou cédées à des tiers.
+                </p>
+            </section>
+
+            <section class="border-l-2 border-neutral-800 pl-4">
+                <h2 data-key="priv-sec3-title" class="text-lg font-semibold text-white mb-2">3. Stockage et Sécurité</h2>
+                <p data-key="priv-sec3-desc">
+                    Nous appliquons des mesures de sécurité rigoureuses pour préserver l'intégrité de vos informations. Les avis ajoutés sur le site sont gérés de manière locale et sécurisée.
+                </p>
+            </section>
+
+            <section class="border-l-2 border-neutral-800 pl-4">
+                <h2 data-key="priv-sec4-title" class="text-lg font-semibold text-white mb-2">4. Vos Droits (RGPD)</h2>
+                <p data-key="priv-sec4-desc">
+                    Conformément à la réglementation européenne (RGPD), vous disposez d'un droit d'accès, de rectification, de modification et de suppression de vos données personnelles. Pour exercer ce droit, ou pour demander le retrait d'un avis publié, vous pouvez nous contacter directement par email à : <strong>Charly4Modeler@gmail.com</strong>.
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <footer id="footer-text" class="border-t border-neutral-900 py-8 text-center text-xs text-gray-600">
+        C3D © 2026. Tous droits réservés.
+    </footer>
+
+    <script>
+        const translations = {
+            fr: {
+                "priv-meta-title": "Politique de Confidentialité | C3D",
+                "priv-back": "← Retour au site",
+                "priv-title": "Politique de Confidentialité",
+                "priv-date": "Dernière mise à jour : 28 mai 2026",
+                "priv-sec1-title": "1. Données collectées",
+                "priv-sec1-desc": "Lorsque vous utilisez le formulaire d'avis de notre site, les informations suivantes peuvent être collectées :",
+                "priv-li1": "Nom complet / Nom d'entreprise",
+                "priv-li2": "Note et texte de commentaire (pour les avis)",
+                "priv-sec2-title": "2. Utilisation des données",
+                "priv-sec2-desc1": "Les données collectées sont utilisées exclusivement pour :",
+                "priv-li3": "Afficher vos avis clients sur le site internet (avec votre consentement).",
+                "priv-sec2-desc2": "En aucun cas vos données ne seront vendues, échangées ou cédées à des tiers.",
+                "priv-sec3-title": "3. Stockage et Sécurité",
+                "priv-sec3-desc": "Nous appliquons des mesures de sécurité rigoureuses pour préserver l'intégrité de vos informations. Les avis ajoutés sur le site sont gérés de manière locale et sécurisée.",
+                "priv-sec4-title": "4. Vos Droits (RGPD)",
+                "priv-sec4-desc": "Conformément à la réglementation européenne (RGPD), vous disposez d'un droit d'accès, de rectification, de modification et de suppression de vos données personnelles. Pour exercer ce droit, ou pour demander le retrait d'un avis publié, vous pouvez nous contacter directement par email à : <strong>Charly4Modeler@gmail.com</strong>.",
+                "footer-text": "C3D © 2026. Tous droits réservés."
+            },
+            en: {
+                "priv-meta-title": "Privacy Policy | C3D",
+                "priv-back": "← Back to site",
+                "priv-title": "Privacy Policy",
+                "priv-date": "Last update: May 28, 2026",
+                "priv-sec1-title": "1. Collected Data",
+                "priv-sec1-desc": "When you use the review form on our site, the following information may be collected:",
+                "priv-li1": "Full name / Company name",
+                "priv-li2": "Rating and comment text (for reviews)",
+                "priv-sec2-title": "2. Use of Data",
+                "priv-sec2-desc1": "The collected data is exclusively used to:",
+                "priv-li3": "Display your customer reviews on the website (with your consent).",
+                "priv-sec2-desc2": "Under no circumstances will your data be sold, exchanged, or transferred to third parties.",
+                "priv-sec3-title": "3. Storage and Security",
+                "priv-sec3-desc": "We apply rigorous security measures to preserve the integrity of your information. Reviews added to the site are managed locally and securely.",
+                "priv-sec4-title": "4. Your Rights (GDPR)",
+                "priv-sec4-desc": "In accordance with European regulations (GDPR), you have the right to access, rectify, modify, and delete your personal data. To exercise this right, or to request the removal of a published review, you can contact us directly by email at: <strong>Charly4Modeler@gmail.com</strong>.",
+                "footer-text": "C3D © 2026. All rights reserved."
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.getElementById('lang-selector').value = lang;
+
+            document.querySelectorAll('[data-key]').forEach(elem => {
+                const key = elem.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    elem.innerHTML = translations[lang][key];
+                }
+            });
+            
+            document.title = translations[lang]['priv-meta-title'];
+            document.getElementById('footer-text').innerText = translations[lang]['footer-text'];
+        }
+
+        document.getElementById('lang-selector').addEventListener('change', (e) => changeLanguage(e.target.value));
+    </script>
+</body>
+</html>

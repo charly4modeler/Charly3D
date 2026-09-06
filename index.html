@@ -165,6 +165,7 @@ h1, h2, h3, h4, p, a, li, label, span{max-width:100%;overflow-wrap:anywhere;word
 }
 </style>
 </head>
+  
 <body>
 
 <div class="floating-cta"><a href="#contact">DISCUTER D'UN PROJET ↗</a></div>
@@ -312,22 +313,19 @@ h1, h2, h3, h4, p, a, li, label, span{max-width:100%;overflow-wrap:anywhere;word
         <div>
           <h3>Envoyer un mot rapide</h3>
           <p>Pas de cahier des charges à remplir. Dites-nous juste ce que vous cherchez à faire, on vous répond sous 24h.</p>
-          <form class="mini-form" action="https://api.web3forms.com/submit" method="POST">
-  <!-- Votre clé d'accès Web3Forms -->
+          <form class="mini-form" id="contact-form">
   <input type="hidden" name="access_key" value="aa19cbe8-265a-4b1e-8d54-7e08e70ca81b">
-
-  <!-- Protection anti-spam transparente (optionnel mais recommandé) -->
-  <input type="checkbox" name="botcheck" style="display: none;">
 
   <div class="input-group">
     <input type="email" name="email" placeholder="Votre adresse email" required>
   </div>
-  
   <div class="input-group">
     <textarea name="message" rows="3" placeholder="En quoi pouvons-nous vous aider ? (facultatif)"></textarea>
   </div>
-  
   <button type="submit" class="submit-btn">LANCER LA DISCUSSION →</button>
+  
+  <!-- Emplacement du message de confirmation -->
+  <p id="form-result" style="margin-top: 10px; font-size: 0.9em;"></p>
 </form>
         </div>
       </div>
@@ -384,6 +382,36 @@ h1, h2, h3, h4, p, a, li, label, span{max-width:100%;overflow-wrap:anywhere;word
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+<script>
+  const form = document.getElementById('contact-form');
+  const result = document.getElementById('form-result');
 
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    result.style.color = "#666";
+    result.innerHTML = "Envoi en cours...";
+
+    const formData = new FormData(form);
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    })
+    .then(async (response) => {
+      if (response.status === 200) {
+        result.style.color = "green";
+        result.innerHTML = "✓ Votre message a bien été envoyé !";
+        form.reset();
+      } else {
+        result.style.color = "red";
+        result.innerHTML = "Une erreur est survenue. Veuillez réessayer.";
+      }
+    })
+    .catch(error => {
+      result.style.color = "red";
+      result.innerHTML = "Erreur de connexion.";
+    });
+  });
+</script>
 </body>
 </html>

@@ -1,1117 +1,381 @@
-<!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<!doctype html>
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-key="meta-title">C3D | Modélisation & Impression 3D</title>
-    <meta name="description" content="Découvrez C3D, experts en impression 3D haute précision et création de prototypes futuristes. Design moderne, minimaliste et haut de gamme.">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        montserrat: ['Montserrat', 'sans-serif'],
-                    },
-                    colors: {
-                        darkBg: '#0A0A0A',
-                        darkCard: '#111111',
-                        accentGreen: '#10B981', // emerald-500
-                        accentGreenHover: '#059669', // emerald-600
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Atelier est un studio digital indépendant basé à Strasbourg. Création de sites web sur mesure, direction artistique et design à fort impact.">
+<meta property="og:title" content="Atelier — Sites web qui restent en tête.">
+<meta property="og:description" content="Studio digital indépendant — sites web sur mesure, direction artistique et expériences digitales.">
+<meta property="og:type" content="website">
+<title>Atelier — Sites web qui restent en tête.</title>
+<style>
+:root{
+  --paper:#0b0f17;
+  --paper2:#151c28;
+  --ink:#f8fafc;
+  --muted:#94a3b8;
+  --orange:#ff5e3a;
+  --orange-glow:rgba(255,94,58,0.25);
+  --line:rgba(255,255,255,0.08);
+  --glass:rgba(21, 28, 40, 0.75);
+  --glass-border:rgba(255, 255, 255, 0.12);
+  --pad:clamp(20px,4vw,64px);
+  --ease:cubic-bezier(.16, 1, .3, 1);
+}
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;width:100%;max-width:100%;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;overflow-x:clip;width:100%;max-width:100%}
+a{color:inherit;text-decoration:none}
+button, input, textarea, select{max-width:100%;font:inherit}
+h1, h2, h3, h4, p, a, li, label, span{max-width:100%;overflow-wrap:anywhere;word-break:normal}
 
-    <style>
-        .fade-in-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-in-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .glassmorphism {
-            background: rgba(10, 10, 10, 0.45);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+.smallcaps{text-transform:uppercase;letter-spacing:.11em;font-size:11px;font-weight:700;color:var(--muted)}
 
-        /* --- STYLES DU CUBE 3D ET ROTATION --- */
-        .cube-container {
-            width: 28px;
-            height: 28px;
-            perspective: 1000px;
-        }
-        .cube {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: rotateCube 8s infinite linear;
-        }
-        .cube-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid #10B981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-        .face-front  { transform: rotateY(0deg) translateZ(14px); }
-        .face-back   { transform: rotateY(180deg) translateZ(14px); }
-        .face-left   { transform: rotateY(-90deg) translateZ(14px); }
-        .face-right  { transform: rotateY(90deg) translateZ(14px); }
-        .face-top    { transform: rotateX(90deg) translateZ(14px); }
-        .face-bottom { transform: rotateX(-90deg) translateZ(14px); }
+/* Navigation */
+.nav{position:fixed;z-index:20;top:0;left:0;width:100%;padding:22px var(--pad);display:flex;justify-content:space-between;align-items:center;background:rgba(11,15,23,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.logo{font-size:18px;font-weight:900;letter-spacing:-.05em;color:var(--ink)}.navlinks{display:flex;gap:28px}.navlinks a{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--muted);transition:color .2s}.navlinks a:hover{color:var(--ink)}
 
-        @keyframes rotateCube {
-            0% { transform: rotateX(0deg) rotateY(0deg); }
-            100% { transform: rotateX(360deg) rotateY(360deg); }
-        }
+/* Hero */
+.hero{min-height:100svh;display:grid;grid-template-columns:1fr 1.1fr;align-items:center;padding:140px var(--pad) 80px;position:relative;overflow:hidden}
+.hero-copy{position:relative;z-index:3}.eyebrow{margin-bottom:28px}.hero h1{font-size:clamp(52px,7.5vw,130px);line-height:.88;letter-spacing:-.05em;margin:0;font-weight:900}
+.hero h1 span{display:block}.hero h1 .accent{color:var(--orange)}
+.hero-intro{max-width:480px;font-size:18px;line-height:1.5;margin:35px 0 35px;color:var(--muted)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);padding:15px 22px;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;transition:.3s var(--ease);border-radius:8px;background:var(--paper2);color:var(--ink)}
+.btn.primary{background:var(--orange);color:#fff;border-color:var(--orange);box-shadow:0 0 30px var(--orange-glow)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,0.5)}
 
-        /* FAQ Transition smooth */
-        .faq-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-    </style>
+/* Zone multi-écrans 3D */
+.hero-art{height:580px;position:relative;perspective:1200px;display:flex;align-items:center;justify-content:center}
+.orb{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,#ff5e3a 0%,rgba(11,15,23,0) 70%);filter:blur(60px);right:10%;top:15%;opacity:.35;animation:float 8s ease-in-out infinite;pointer-events:none}
+
+.device{position:absolute;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);overflow:hidden;transition:transform .5s var(--ease)}
+.device-header{height:30px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 12px;gap:6px}
+.device-header .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2)}
+.device-header .dot.red{background:#ff5f56}.device-header .dot.yellow{background:#ffbd2e}.device-header .dot.green{background:#27c93f}
+
+.device.desktop{width:88%;height:380px;right:0;top:8%;transform:rotateY(-12deg) rotateX(6deg) rotateZ(2deg);z-index:1}
+.desktop .ui-body{padding:24px;display:grid;grid-template-columns:200px 1fr;gap:20px;height:calc(100% - 30px)}
+.desktop .sidebar{background:rgba(255,255,255,0.02);border-radius:8px;padding:15px;display:flex;flex-direction:column;gap:10px}
+.desktop .sidebar-line{height:8px;background:var(--line);border-radius:4px;width:80%}
+.desktop .sidebar-line.active{background:var(--orange);width:60%}
+.desktop .main-content{display:flex;flex-direction:column;gap:15px}
+.desktop .hero-banner{height:100px;background:linear-gradient(135deg,rgba(255,94,58,0.15),rgba(255,255,255,0.02));border:1px solid rgba(255,94,58,0.2);border-radius:8px;padding:15px;display:flex;align-items:center}
+.desktop .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.desktop .metric-card{background:rgba(255,255,255,0.02);border:1px solid var(--line);padding:12px;border-radius:6px;font-size:18px;font-weight:900}
+
+.device.tablet{width:52%;height:320px;left:8%;top:28%;transform:rotateY(-8deg) rotateX(4deg) rotateZ(-3deg);z-index:2;box-shadow:0 25px 50px rgba(0,0,0,0.7)}
+.tablet .ui-body{padding:18px;display:flex;flex-direction:column;gap:12px;height:calc(100% - 30px)}
+.tablet .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tablet .card{height:80px;background:rgba(255,255,255,0.03);border-radius:8px;border:1px solid var(--line);padding:10px}
+
+.device.phone{width:22%;height:340px;left:2%;bottom:2%;transform:rotateY(-5deg) rotateX(2deg) rotateZ(4deg);z-index:3;border-radius:24px;border:2px solid var(--glass-border);background:var(--paper2)}
+.phone .device-header{justify-content:center;background:transparent;border:0;padding-top:10px}
+.phone .notch{width:40%;height:12px;background:#000;border-radius:10px}
+.phone .ui-body{padding:15px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+.phone .avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff8c69)}
+.phone .pill{width:80%;height:8px;background:var(--line);border-radius:4px}
+.phone .btn-mini{width:100%;height:32px;background:var(--orange);border-radius:6px;margin-top:auto}
+
+.hero-art:hover .device.desktop{transform:rotateY(-6deg) rotateX(3deg) translateZ(10px)}
+.hero-art:hover .device.tablet{transform:rotateY(-4deg) rotateX(2deg) translateZ(30px)}
+.hero-art:hover .device.phone{transform:rotateY(0deg) translateZ(50px)}
+
+.scrollhint{position:absolute;bottom:30px;left:var(--pad);font-size:10px;letter-spacing:.12em;font-weight:700;z-index:3;color:var(--muted)}.scrollhint:after{content:"";display:inline-block;width:45px;height:1px;background:var(--muted);vertical-align:middle;margin-left:12px}
+
+/* Marquee horizontal */
+.marquee{background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;padding:20px 0;font-size:12px;font-weight:800;letter-spacing:.15em;display:flex}
+.track{display:flex;width:max-content;animation:marquee 25s linear infinite;will-change:transform}
+.track span{padding:0 35px;color:var(--ink);display:inline-flex;align-items:center;gap:35px}
+.track b{color:var(--orange)}
+
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* Sections */
+.proof-strip{background:var(--paper);padding:60px var(--pad);border-bottom:1px solid var(--line)}
+.proof-line{display:flex;align-items:center;justify-content:space-between;gap:15px;font-size:clamp(22px,3.3vw,48px);font-weight:900;letter-spacing:-.04em;margin-top:30px;color:var(--ink)}.proof-line b{color:var(--orange)}
+
+.intro{padding:clamp(100px,12vw,180px) var(--pad);display:grid;grid-template-columns:.32fr 1fr;gap:7vw}.intro h2{font-size:clamp(42px,6vw,90px);line-height:.9;letter-spacing:-.05em;margin:0;max-width:1100px}.intro p{font-size:18px;line-height:1.5;max-width:600px;color:var(--muted)}
+
+.work{padding:30px var(--pad) 160px}.section-head{display:flex;justify-content:space-between;align-items:end;border-top:1px solid var(--line);padding-top:20px;margin-bottom:60px}.section-head h2{font-size:clamp(52px,8vw,120px);line-height:.85;letter-spacing:-.05em;margin:0}
+.projects{display:grid;gap:100px}.project{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px);align-items:center}.project:nth-child(even){direction:rtl}.project:nth-child(even)>*{direction:ltr}
+.project-visual{aspect-ratio:1.25;position:relative;overflow:hidden;background:var(--paper2);border:1px solid var(--line);border-radius:12px}
+.project-meta{display:flex;gap:18px;font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:22px;color:var(--orange)}
+.project h3{font-size:clamp(42px,5vw,80px);line-height:.88;letter-spacing:-.05em;margin:0 0 22px}.project p{font-size:16px;line-height:1.5;max-width:430px;color:var(--muted)}
+.arrow{display:inline-block;margin-top:22px;font-size:11px;font-weight:800;letter-spacing:.1em;border-bottom:1px solid var(--orange);padding-bottom:7px;color:var(--orange)}
+
+.black{background:var(--paper2);color:var(--ink)}.capabilities{padding:130px var(--pad)}.capabilities-grid{display:grid;grid-template-columns:.3fr 1fr;gap:7vw}.capabilities h2{font-size:clamp(54px,7vw,110px);line-height:.85;letter-spacing:-.05em;margin:0}
+.service-list{border-top:1px solid var(--line)}.service{display:grid;grid-template-columns:60px 1fr auto;gap:20px;padding:28px 0;border-bottom:1px solid var(--line);align-items:center}.service strong{font-size:clamp(24px,3vw,42px);letter-spacing:-.03em}.service p{font-size:14px;color:var(--muted);max-width:360px}.service em{font-style:normal;font-size:24px;color:var(--orange)}
+
+.process{padding:130px var(--pad);background:var(--paper)}.process h2{font-size:clamp(54px,8vw,120px);line-height:.85;letter-spacing:-.05em;margin:0 0 70px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}.step{padding:30px 20px 20px 0;border-right:1px solid var(--line);min-height:240px}.step:not(:first-child){padding-left:20px}.step:last-child{border-right:0}.num{font-size:11px;font-weight:800;color:var(--orange)}.step h3{font-size:24px;letter-spacing:-.03em;margin:30px 0 15px}.step p{font-size:14px;line-height:1.5;color:var(--muted);max-width:240px}
+
+.statement{min-height:75vh;display:flex;align-items:center;padding:100px var(--pad);position:relative;overflow:hidden;background:var(--paper2)}.statement h2{position:relative;z-index:2;font-size:clamp(54px,9vw,140px);line-height:.85;letter-spacing:-.05em;margin:0;max-width:1250px}.statement h2 span{display:block}.statement h2 .orange{color:var(--orange)}
+
+/* Section Contact Épurée */
+.contact-section{padding:120px var(--pad);background:var(--paper);border-top:1px solid var(--line);position:relative;overflow:hidden}
+.contact-container{max-width:1100px;margin:0 auto}
+.contact-head{margin-bottom:60px}
+.contact-head h2{font-size:clamp(40px,7vw,90px);line-height:.9;letter-spacing:-.04em;margin:20px 0 0;font-weight:900}
+.contact-head h2 span{color:var(--orange)}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch}
+.contact-card{background:var(--paper2);border:1px solid var(--line);border-radius:16px;padding:40px;display:flex;flex-direction:column;justify-content:space-between;transition:border-color .3s}
+.contact-card:hover{border-color:rgba(255,94,58,0.4)}
+.contact-card h3{font-size:24px;margin:0 0 12px;letter-spacing:-.02em}
+.contact-card p{font-size:15px;line-height:1.6;color:var(--muted);margin:0 0 30px}
+
+.mini-form{display:flex;flex-direction:column;gap:16px}
+.input-group input, .input-group textarea{width:100%;background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:8px;padding:16px;color:var(--ink);font:inherit;font-size:14px;outline:none;transition:border-color .2s}
+.input-group input:focus, .input-group textarea:focus{border-color:var(--orange)}
+.input-group input::placeholder, .input-group textarea::placeholder{color:#64748b}
+
+.submit-btn{background:var(--orange);color:#fff;border:0;padding:16px 24px;border-radius:8px;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.3s var(--ease);box-shadow:0 0 25px var(--orange-glow)}
+.submit-btn:hover{transform:translateY(-2px);opacity:.95}
+
+.direct-channels{display:flex;flex-direction:column;gap:20px}
+.channel-box{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:28px;display:flex;align-items:center;justify-content:space-between;transition:.3s}
+.channel-box:hover{background:rgba(255,255,255,0.02);border-color:var(--line)}
+.channel-info label{display:block;font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--orange);margin-bottom:6px;text-transform:uppercase}
+.channel-info span{font-size:18px;font-weight:700}
+.channel-action{font-size:20px;color:var(--muted)}
+
+.reassurance-list{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+.reassurance-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.reassurance-item b{color:var(--ink)}
+
+.floating-cta{position:fixed;right:20px;bottom:20px;z-index:30}.floating-cta a{display:block;background:var(--orange);color:#fff;padding:14px 18px;font-size:10px;font-weight:900;letter-spacing:.09em;border-radius:30px;box-shadow:0 10px 25px rgba(0,0,0,0.5);transition:.3s}.floating-cta a:hover{transform:scale(1.05)}
+
+.footer{padding:30px var(--pad);background:var(--paper);display:flex;justify-content:space-between;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;border-top:1px solid var(--line);color:var(--muted)}
+
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s var(--ease),transform .8s var(--ease)}.reveal.in{opacity:1;transform:none}
+@keyframes float{50%{transform:translate3d(0,-18px,0) rotate(2deg)}}
+
+@media(max-width:960px){
+  .navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:110px}.hero h1{font-size:clamp(48px,11vw,80px)}
+  .hero-art{height:420px;margin-top:40px}
+  .device.desktop{width:100%;right:0;top:0;transform:none}
+  .device.tablet{width:60%;left:5%;top:20%;transform:none}
+  .device.phone{width:35%;left:0;bottom:0;transform:none}
+  .hero-art:hover .device{transform:none}
+  .intro,.capabilities-grid,.process .steps,.contact-grid{grid-template-columns:1fr;gap:35px}
+  .steps .step{border-right:0;border-bottom:1px solid var(--line);padding-left:0;min-height:auto;padding-bottom:30px}
+  .project,.project:nth-child(even){grid-template-columns:1fr;direction:ltr}.project-visual{min-height:280px}
+}
+</style>
 </head>
-<body class="bg-darkBg text-gray-200 font-sans antialiased overflow-x-hidden">
+<body>
 
-    <header class="fixed top-0 left-0 w-full z-50 glassmorphism transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-                <div class="cube-container">
-                    <div class="cube">
-                        <div class="cube-face face-front"></div>
-                        <div class="cube-face face-back"></div>
-                        <div class="cube-face face-left"></div>
-                        <div class="cube-face face-right"></div>
-                        <div class="cube-face face-top"></div>
-                        <div class="cube-face face-bottom"></div>
-                    </div>
-                </div>
-                <span class="text-2xl font-bold text-white tracking-wider font-sans">C3D</span>
-            </a>
+<div class="floating-cta"><a href="#contact">DISCUTER D'UN PROJET ↗</a></div>
 
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#services" data-key="nav-services" class="text-xs font-medium tracking-widest text-gray-400 hover:text-white transition-colors duration-300">SERVICES</a>
-                <a href="#projets" data-key="nav-projects" class="text-xs font-medium tracking-widest text-gray-400 hover:text-white transition-colors duration-300">PROJETS</a>
-                <a href="#avis" data-key="nav-reviews" class="text-xs font-medium tracking-widest text-gray-400 hover:text-white transition-colors duration-300">AVIS</a>
-                <a href="#faq" data-key="nav-faq" class="text-xs font-medium tracking-widest text-gray-400 hover:text-white transition-colors duration-300">FAQ</a>
-                <a href="#contact" data-key="nav-contact" class="text-xs font-medium tracking-widest text-gray-400 hover:text-white transition-colors duration-300">CONTACT</a>
-                
-                <select id="lang-selector" class="bg-transparent border border-neutral-800 rounded px-2 py-1 text-xs text-gray-400 font-medium focus:outline-none focus:border-accentGreen cursor-pointer">
-                    <option value="fr" class="bg-darkBg text-white">FR</option>
-                    <option value="en" class="bg-darkBg text-white">EN</option>
-                </select>
-            </nav>
+<nav class="nav">
+  <a class="logo" href="#">ATELIER<span style="color:var(--orange)">.</span></a>
+  <div class="navlinks">
+    <a href="#realisations">RÉALISATIONS</a><a href="#preuve">POURQUOI NOUS</a><a href="#processus">PROCESSUS</a><a href="#contact">DÉMARRER UN PROJET →</a>
+  </div>
+</nav>
 
-            <div class="flex items-center space-x-4 md:hidden">
-                <select id="lang-selector-mobile" class="bg-transparent border border-neutral-800 rounded px-2 py-1 text-xs text-gray-400 font-medium focus:outline-none focus:border-accentGreen cursor-pointer">
-                    <option value="fr" class="bg-darkBg text-white">FR</option>
-                    <option value="en" class="bg-darkBg text-white">EN</option>
-                </select>
-                
-                <button id="menu-btn" class="text-white focus:outline-none" aria-label="Ouvrir le menu">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
+<header class="hero">
+  <div class="hero-copy reveal">
+    <div class="eyebrow smallcaps">Studio digital indépendant — Strasbourg / France</div>
+    <h1><span>VOTRE SITE.</span><span>VOTRE IMAGE.</span><span class="accent">VOS CLIENTS.</span></h1>
+    <p class="hero-intro">Nous créons des sites web sur mesure et des identités visuelles d'exception qui captivent vos prospects sur tous les écrans.</p>
+    <div class="hero-actions"><a class="btn primary" href="#contact">PARLONS DE VOTRE PROJET →</a><a class="btn" href="#realisations">VOIR NOS RÉALISATIONS</a></div>
+  </div>
+  
+  <div class="hero-art" aria-hidden="true">
+    <div class="orb"></div>
+    
+    <div class="device desktop">
+      <div class="device-header"><i class="dot red"></i><i class="dot yellow"></i><i class="dot green"></i></div>
+      <div class="ui-body">
+        <div class="sidebar">
+          <div class="sidebar-line active"></div>
+          <div class="sidebar-line"></div>
+          <div class="sidebar-line"></div>
+          <div class="sidebar-line"></div>
         </div>
-
-        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-darkBg border-b border-neutral-800 px-6 py-6 space-y-4 flex flex-col transition-all duration-300 shadow-2xl">
-            <a href="#services" data-key="nav-services" class="mobile-link text-sm font-medium tracking-widest text-gray-400 hover:text-white py-2">SERVICES</a>
-            <a href="#projets" data-key="nav-projects" class="mobile-link text-sm font-medium tracking-widest text-gray-400 hover:text-white py-2">PROJETS</a>
-            <a href="#avis" data-key="nav-reviews" class="mobile-link text-sm font-medium tracking-widest text-gray-400 hover:text-white py-2">AVIS</a>
-            <a href="#faq" data-key="nav-faq" class="mobile-link text-sm font-medium tracking-widest text-gray-400 hover:text-white py-2">FAQ</a>
-            <a href="#contact" data-key="nav-contact" class="mobile-link text-sm font-medium tracking-widest text-gray-400 hover:text-white py-2">CONTACT</a>
+        <div class="main-content">
+          <div class="hero-banner">
+            <span style="font-weight:900;font-size:18px;letter-spacing:-.03em">PERFORMANCE +142%</span>
+          </div>
+          <div class="metrics">
+            <div class="metric-card"><span style="font-size:9px;color:var(--muted);display:block">TRAFIC</span>24k</div>
+            <div class="metric-card"><span style="font-size:9px;color:var(--muted);display:block">CONVERSION</span>4.8%</div>
+            <div class="metric-card"><span style="font-size:9px;color:var(--muted);display:block">SCORE</span>99/100</div>
+          </div>
         </div>
-    </header>
-
-    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="Images\OrskH.jpg" alt="Fond sous-marin sombre et mystérieux" class="w-full h-full object-cover filter brightness-[0.80] contrast-125 scale-105">
-            <div class="absolute inset-0 bg-gradient-to-tr from-darkBg via-darkBg/85 to-accentGreen/10"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full py-12 md:py-24">
-            <div class="max-w-3xl">
-                <span data-key="hero-subtitle" class="inline-block text-xs font-semibold tracking-[0.2em] text-accentGreen uppercase mb-4 opacity-90">Modélisation et impression 3D</span>
-                <h1 id="hero-title" class="font-montserrat text-4xl sm:text-5xl md:text-7xl font-extrabold text-accentGreen tracking-tight leading-none mb-6">
-                    CONCEVOIR <br><span class="text-white">VOS PROJETS.</span>
-                </h1>
-                <p data-key="hero-desc" class="text-lg md:text-xl text-gray-300 font-light leading-relaxed max-w-2xl">
-                    Artisan numérique, je donne vie à vos projets. De la conception sur mesure à la modification de vos fichiers, je maîtrise tout le processus jusqu'à l'impression 3D. Du pixel à la matière, je transforme vos idées en objets réels avec la précision du sur-mesure.
-                </p>
-            </div>
-        </div>
-        
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 hidden md:block">
-            <div class="w-6 h-10 border border-neutral-700 rounded-full flex justify-center p-1">
-                <div class="w-1 h-2 bg-accentGreen rounded-full animate-bounce"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="py-24 md:py-32 bg-darkCard/30 border-b border-neutral-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-3xl mx-auto mb-20 fade-in-scroll">
-                <span class="text-xs font-semibold tracking-[0.2em] text-accentGreen uppercase mb-2 block">Charly 3D</span>
-                <h2 data-key="services-title" class="text-3xl md:text-4xl font-bold tracking-tight text-white font-montserrat">Mes Services</h2>
-                <div class="w-12 h-[2px] bg-accentGreen mx-auto mt-4"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div class="relative min-h-[420px] rounded-sm overflow-hidden border border-neutral-900 hover:border-accentGreen/50 transition-all duration-300 group fade-in-scroll flex flex-col justify-start p-8 bg-cover bg-center" style="background-image: linear-gradient(to top, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.6) 100%), url('https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?auto=format&fit=crop&q=80&w=600');">
-                    <div class="w-12 h-12 mb-6 rounded-sm bg-neutral-900/80 backdrop-blur-sm flex items-center justify-center text-accentGreen group-hover:bg-accentGreen group-hover:text-darkBg transition-all duration-300">
-                        <i data-lucide="layers" class="w-6 h-6"></i>
-                    </div>
-                    <div class="relative z-10">
-                        <h3 data-key="service1-title" class="text-xl font-semibold text-white mb-4">Modélisation 3D</h3>
-                        <p data-key="service1-desc" class="text-gray-300 text-sm font-light leading-relaxed">Donnez vie à vos idées, même sans fichier de départ. Que vous partiez d'une simple idée (croquis, photos, références) ou d'un fichier 3D existant à adapter, je réalise vos projets sur mesure. Je conçois vos modèles de A à Z ou j'ajuste vos fichiers actuels pour les rendre parfaitement prêts à l'impression. Confiez-moi vos concepts, je les transforme en fichiers 3D optimisés et prêts à prendre forme.</p>
-                    </div>
-                </div>
-
-                <div class="relative min-h-[420px] rounded-sm overflow-hidden border border-neutral-900 hover:border-accentGreen/50 transition-all duration-300 group fade-in-scroll flex flex-col justify-start p-8 bg-cover bg-center" style="transition-delay: 100ms; background-image: linear-gradient(to top, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.6) 100%), url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=600');">
-                    <div class="w-12 h-12 mb-6 rounded-sm bg-neutral-900/80 backdrop-blur-sm flex items-center justify-center text-accentGreen group-hover:bg-accentGreen group-hover:text-darkBg transition-all duration-300">
-                        <i data-lucide="cpu" class="w-6 h-6"></i>
-                    </div>
-                    <div class="relative z-10">
-                        <h3 data-key="service2-title" class="text-xl font-semibold text-white mb-4">Impression 3D</h3>
-                        <p data-key="service2-desc" class="text-gray-300 text-sm font-light leading-relaxed">Impression(s) 3D en PLA/PETG/ABS, unicolore ou multicolore à partir d'un ou plusieurs modèles de ma bibliothèque, que j'ai réalisé pour vous ou en votre possession préalable. Bénéficiez d'une réactivité totale pour vos validations de formes, de fonctions et d'assemblages complexes avant l'industrialisation.</p>
-                    </div>
-                </div>
-
-                <div class="relative min-h-[420px] rounded-sm overflow-hidden border border-neutral-900 hover:border-accentGreen/50 transition-all duration-300 group fade-in-scroll flex flex-col justify-start p-8 bg-cover bg-center" style="transition-delay: 200ms; background-image: linear-gradient(to top, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.6) 100%), url('https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&q=80&w=600');">
-                    <div class="w-12 h-12 mb-6 rounded-sm bg-neutral-900/80 backdrop-blur-sm flex items-center justify-center text-accentGreen group-hover:bg-accentGreen group-hover:text-darkBg transition-all duration-300">
-                        <i data-lucide="shield-check" class="w-6 h-6"></i>
-                    </div>
-                    <div class="relative z-10">
-                        <h3 data-key="service3-title" class="text-xl font-semibold text-white mb-4">Post-traitement</h3>
-                        <p data-key="service3-desc" class="text-gray-300 text-sm font-light leading-relaxed">Passez de la pièce brute à l'objet d'art. Parce qu'une bonne impression ne fait pas tout, je prends en charge l'étape cruciale du post-traitement pour donner à vos pièces un aspect professionnel et impeccable. Ponçage minutieux, application de vernis protecteur et mise en peinture personnalisée : je sublime chaque détail pour effacer les lignes d'impression et offrir à vos objets un rendu visuel et tactile haut de gamme.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-center fade-in-scroll">
-                <a href="#contact" data-key="btn-contact-services" class="inline-flex items-center justify-center px-10 py-4 bg-accentGreen hover:bg-accentGreenHover text-darkBg font-bold tracking-wider text-xs uppercase rounded-sm transition-all duration-300 shadow-lg shadow-accentGreen/10">
-                    ME CONTACTER
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="projets" class="py-24 md:py-32 overflow-hidden">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <span data-key="projects-subtitle" class="text-xs font-semibold tracking-[0.2em] text-accentGreen uppercase block mb-2 fade-in-scroll">Réalisations</span>
-            <h2 data-key="projects-title" class="text-3xl md:text-5xl font-bold tracking-tight text-white font-montserrat mb-12 fade-in-scroll">Vos photos</h2>
-            
-            <div class="relative group max-w-5xl mx-auto rounded-sm border border-neutral-800 overflow-hidden bg-darkCard fade-in-scroll">
-                <div id="slider" class="flex transition-transform duration-500 ease-out h-[450px] md:h-[650px]"></div>
-
-                <button id="prev-slide" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-sm bg-black/70 text-white flex items-center justify-center hover:bg-accentGreen hover:text-darkBg transition-colors z-20">
-                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
-                </button>
-                <button id="next-slide" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-sm bg-black/70 text-white flex items-center justify-center hover:bg-accentGreen hover:text-darkBg transition-colors z-20">
-                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
-                </button>
-            </div>
-
-            <div id="dots-container" class="flex justify-center space-x-3 mt-6 fade-in-scroll"></div>
-
-            <div class="mt-10 fade-in-scroll">
-                <a href="projets.html" data-key="btn-all-projects" class="inline-flex items-center justify-center px-8 py-4 border border-neutral-800 bg-darkCard text-white font-medium tracking-wide rounded-sm hover:border-accentGreen hover:text-accentGreen transition-all duration-300">
-                    VOIR TOUS LES PROJETS
-                    <i data-lucide="grid" class="w-4 h-4 ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex-col items-center justify-center p-4">
-        <button id="close-lightbox" class="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors text-2xl">
-            <i data-lucide="x" class="w-8 h-8"></i>
-        </button>
-        
-        <div class="relative w-full max-w-5xl aspect-video md:h-[80vh] flex items-center justify-center">
-            <img id="lightbox-img" src="" alt="Plein écran" class="max-w-full max-h-full object-contain">
-            
-            <button id="lightbox-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-neutral-900/80 hover:bg-accentGreen text-white hover:text-darkBg rounded-sm flex items-center justify-center transition-all">
-                <i data-lucide="chevron-left" class="w-6 h-6"></i>
-            </button>
-            <button id="lightbox-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-neutral-900/80 hover:bg-accentGreen text-white hover:text-darkBg rounded-sm flex items-center justify-center transition-all">
-                <i data-lucide="chevron-right" class="w-6 h-6"></i>
-            </button>
-        </div>
-
-        <div class="text-center mt-4 space-y-2">
-            <h4 id="lightbox-title" class="text-white font-montserrat text-xl font-bold"></h4>
-            <div id="lightbox-sub-dots" class="flex justify-center space-x-2"></div>
-        </div>
+      </div>
     </div>
 
-    <section id="avis" class="py-24 md:py-32 bg-darkCard/20 border-b border-neutral-900">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-                
-                <div class="lg:col-span-7 space-y-6 fade-in-scroll">
-                    <div>
-                        <span data-key="reviews-subtitle" class="text-xs font-semibold tracking-[0.2em] text-accentGreen uppercase block mb-2">Retours d'expérience</span>
-                        <h2 data-key="reviews-heading" class="text-3xl md:text-4xl font-bold tracking-tight text-white font-montserrat">Ce que disent mes clients.</h2>
-                    </div>
-
-                    <div class="bg-darkCard p-6 rounded-sm border border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="flex items-center space-x-4">
-                            <span id="global-rating-value" class="text-4xl md:text-5xl font-extrabold text-white font-montserrat tracking-tight">5.0</span>
-                            <div>
-                                <div id="global-rating-stars" class="flex text-accentGreen text-lg">★★★★★</div>
-                                <p data-key="reviews-global" class="text-xs text-gray-500 uppercase tracking-wider mt-1">Note globale du studio</p>
-                            </div>
-                        </div>
-                        <div id="reviews-certified" class="text-sm text-gray-400 font-light text-center sm:text-right">
-                            Basé sur vos retours clients.
-                        </div>
-                    </div>
-                    
-                    <div id="reviews-list" class="space-y-4 pt-2 max-h-[500px] overflow-y-auto pr-2">
-                        <p id="no-reviews-msg" class="text-neutral-500 text-sm font-light italic">Aucun avis publié pour le moment. Utilisez le formulaire pour ajouter le premier !</p>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-5 bg-darkCard p-8 rounded-sm border border-neutral-900 h-fit fade-in-scroll">
-                    <h3 data-key="form-title" class="text-xl font-bold font-montserrat text-white mb-6">Laisser un avis</h3>
-                    <form id="review-form" class="space-y-4">
-                        <div>
-                            <label for="review-name" data-key="form-label-name" class="block text-xs font-medium tracking-wider text-gray-400 uppercase mb-2">Votre nom / Entreprise</label>
-                            <input type="text" id="review-name" required class="w-full bg-darkBg border border-neutral-800 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-accentGreen font-light text-sm">
-                        </div>
-                        <div>
-                            <label for="review-rating" data-key="form-label-rating" class="block text-xs font-medium tracking-wider text-gray-400 uppercase mb-2">Note</label>
-                            <select id="review-rating" class="w-full bg-darkBg border border-neutral-800 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-accentGreen font-light text-sm">
-                                <option value="5">★★★★★ (5/5)</option>
-                                <option value="4.5">★★★★½ (4.5/5)</option>
-                                <option value="4">★★★★☆ (4/5)</option>
-                                <option value="3.5">★★★½☆ (3.5/5)</option>
-                                <option value="3">★★★☆☆ (3/5)</option>
-                                <option value="2.5">★★½☆☆ (2.5/5)</option>
-                                <option value="2">★★☆☆☆ (2/5)</option>
-                                <option value="1.5">★½☆☆☆ (1.5/5)</option>
-                                <option value="1">★☆☆☆☆ (1/5)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <div class="flex justify-between items-center mb-2">
-                                <label for="review-text" data-key="form-label-comment" class="block text-xs font-medium tracking-wider text-gray-400 uppercase">Votre commentaire</label>
-                                <span id="char-counter" class="text-[11px] text-neutral-500 font-light">0 / 300</span>
-                            </div>
-                            <textarea id="review-text" rows="3" maxlength="300" required class="w-full bg-darkBg border border-neutral-800 rounded-sm px-4 py-3 text-white focus:outline-none focus:border-accentGreen font-light text-sm resize-none"></textarea>
-                        </div>
-                        <button type="submit" data-key="form-btn-submit" class="w-full bg-transparent border border-accentGreen hover:bg-accentGreen text-white hover:text-darkBg font-bold tracking-wider text-xs uppercase py-3 rounded-sm transition-all duration-300">
-                            PUBLIER L'AVIS
-                        </button>
-                    </form>
-                </div>
-
-            </div>
+    <div class="device tablet">
+      <div class="device-header"><i class="dot"></i><i class="dot"></i></div>
+      <div class="ui-body">
+        <div style="font-weight:900;font-size:14px;letter-spacing:-.02em">DESIGN SYSTÈME</div>
+        <div class="grid-2">
+          <div class="card"><div style="height:6px;width:50%;background:var(--orange);border-radius:3px;margin-bottom:8px"></div><div style="height:4px;width:80%;background:var(--line);border-radius:2px"></div></div>
+          <div class="card"><div style="height:6px;width:40%;background:var(--ink);border-radius:3px;margin-bottom:8px"></div><div style="height:4px;width:70%;background:var(--line);border-radius:2px"></div></div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <section id="faq" class="py-24 md:py-32 border-b border-neutral-900">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="text-center mb-16 fade-in-scroll">
-                <span data-key="faq-subtitle" class="text-xs font-semibold tracking-[0.2em] text-accentGreen uppercase block mb-2">Des questions ?</span>
-                <h2 data-key="faq-title" class="text-3xl md:text-4xl font-bold tracking-tight text-white font-montserrat">Foire Aux Questions</h2>
-                <div class="w-12 h-[2px] bg-accentGreen mx-auto mt-4"></div>
+    <div class="device phone">
+      <div class="device-header"><div class="notch"></div></div>
+      <div class="ui-body">
+        <div class="avatar"></div>
+        <div class="pill"></div>
+        <div class="pill" style="width:50%"></div>
+        <div class="btn-mini"></div>
+      </div>
+    </div>
+  </div>
+  <div class="scrollhint">DÉFILER POUR EXPLORER</div>
+</header>
+
+<div class="marquee">
+  <div class="track">
+    <span>CRÉATION WEB <b>✳</b></span><span>DIRECTION ARTISTIQUE <b>✳</b></span><span>EXPÉRIENCE DIGITALE <b>✳</b></span><span>DÉVELOPPEMENT <b>✳</b></span><span>E-COMMERCE <b>✳</b></span>
+    <span>CRÉATION WEB <b>✳</b></span><span>DIRECTION ARTISTIQUE <b>✳</b></span><span>EXPÉRIENCE DIGITALE <b>✳</b></span><span>DÉVELOPPEMENT <b>✳</b></span><span>E-COMMERCE <b>✳</b></span>
+  </div>
+</div>
+
+<section class="proof-strip" id="preuve">
+  <div class="smallcaps">ILS CHOISISSENT UNE APPROCHE DIFFÉRENTE</div>
+  <div class="proof-line"><span>STRATÉGIE</span><b>+</b><span>DESIGN</span><b>+</b><span>TECHNOLOGIE</span><b>+</b><span>CONVERSION</span></div>
+</section>
+
+<section class="intro">
+  <div class="smallcaps reveal">01 — NOTRE VISION</div>
+  <div class="reveal"><h2>UN SITE N'EST PAS UNE VITRINE.<br> C'EST VOTRE MEILLEUR COMMERCIAL.</h2><p style="margin-top:38px">Nous réunissons stratégie, direction artistique, design et développement pour créer des expériences qui donnent confiance avant même le premier échange.</p></div>
+</section>
+
+<section id="realisations" class="work">
+  <div class="section-head reveal"><div class="smallcaps">02 — RÉALISATIONS</div><h2>NOS PROJETS.</h2></div>
+  <div class="projects">
+    <article class="project reveal">
+      <div class="project-visual"></div>
+      <div>
+        <div class="project-meta"><span>01</span><span>Site immersif</span><span>Strasbourg</span></div>
+        <h3>MAISON BRUT.</h3>
+        <p>Une identité digitale radicale pour une maison de restauration contemporaine.</p>
+        <a class="arrow" href="#contact">CRÉER UNE EXPÉRIENCE SIMILAIRE →</a>
+      </div>
+    </article>
+    <article class="project reveal">
+      <div class="project-visual"></div>
+      <div>
+        <div class="project-meta"><span>02</span><span>Expérience e-commerce</span><span>Paris</span></div>
+        <h3>OBJET STUDIO.</h3>
+        <p>Un e-commerce éditorial pensé pour transformer la découverte en désir.</p>
+        <a class="arrow" href="#contact">CRÉER UNE EXPÉRIENCE SIMILAIRE →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="expertise" class="black capabilities">
+  <div class="capabilities-grid">
+    <div class="smallcaps reveal">03 — EXPERTISE</div>
+    <div>
+      <h2 class="reveal">CE QUE NOUS FAISONS.</h2>
+      <div class="service-list" style="margin-top:50px">
+        <div class="service reveal"><span class="num">01</span><strong>STRATÉGIE</strong><p>Positionnement, structure et parcours pensés pour vos objectifs.</p><em>↗</em></div>
+        <div class="service reveal"><span class="num">02</span><strong>DIRECTION ARTISTIQUE</strong><p>Une identité digitale qui vous distingue immédiatement.</p><em>↗</em></div>
+        <div class="service reveal"><span class="num">03</span><strong>DESIGN & DEV</strong><p>Interfaces rapides, fluides et responsive.</p><em>↗</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="processus" class="process">
+  <div class="smallcaps reveal">04 — PROCESSUS</div><h2 class="reveal">DE L'IDÉE À LA MISE EN LIGNE.</h2>
+  <div class="steps">
+    <div class="step reveal"><div class="num">01</div><h3>DÉCOUVRIR</h3><p>Comprendre votre activité, votre marché et vos objectifs.</p></div>
+    <div class="step reveal"><div class="num">02</div><h3>CONCEVOIR</h3><p>Construire une direction forte et l'expérimenter.</p></div>
+    <div class="step reveal"><div class="num">03</div><h3>DÉVELOPPER</h3><p>Donner vie au design avec précision.</p></div>
+    <div class="step reveal"><div class="num">04</div><h3>LANCER</h3><p>Optimiser, tester et publier la solution finale.</p></div>
+  </div>
+</section>
+
+<section class="statement"><h2 class="reveal"><span>VOTRE PROCHAIN SITE</span><span>DOIT ÊTRE <span class="orange">INOUBLIABLE.</span></span></h2></section>
+
+<section id="contact" class="contact-section">
+  <div class="contact-container">
+    <div class="contact-head reveal">
+      <div class="smallcaps">ÉCHANGE SIMPLE — SANS ENGAGEMENT</div>
+      <h2>UN PROJET EN TÊTE ?<br><span>DISCUTONS-EN TOUT SIMPLEMENT.</span></h2>
+    </div>
+
+    <div class="contact-grid reveal">
+      <div class="contact-card">
+        <div>
+          <h3>Envoyer un mot rapide</h3>
+          <p>Pas de cahier des charges à remplir. Dites-nous juste ce que vous cherchez à faire, on vous répond sous 24h.</p>
+          <form class="mini-form" onsubmit="event.preventDefault();">
+            <div class="input-group">
+              <input type="email" placeholder="Votre adresse email" required>
             </div>
-
-            <div class="space-y-4 fade-in-scroll">
-                <div class="border border-neutral-800 bg-darkCard rounded-sm overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between p-6 text-left text-white font-medium hover:text-accentGreen transition-colors duration-300 focus:outline-none">
-                        <span data-key="faq1-q">Quels formats de fichiers acceptez-vous pour l'impression 3D ?</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-accentGreen transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content">
-                        <div data-key="faq1-a" class="p-6 pt-0 text-sm text-gray-400 font-light leading-relaxed border-t border-neutral-900/50">
-                            Nous acceptons principalement les formats de fichiers standard de l'industrie comme les fichiers .STL, .STEP, .IGS et .OBJ. Si vous possédez un format natif spécifique (SolidWorks, Fusion360), notre équipe peut s'occuper de la conversion.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-neutral-800 bg-darkCard rounded-sm overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between p-6 text-left text-white font-medium hover:text-accentGreen transition-colors duration-300 focus:outline-none">
-                        <span data-key="faq2-q">Quels sont vos délais moyens de fabrication ?</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-accentGreen transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content">
-                        <div data-key="faq2-a" class="p-6 pt-0 text-sm text-gray-400 font-light leading-relaxed border-t border-neutral-900/50">
-                            Pour les prototypes simples, nos délais d'impression et de traitement standard varient entre 48 et 72 heures. Pour des séries industrielles ou des pièces exigeant de lourdes finitions manuelles, un calendrier précis vous sera communiqué à l'analyse de votre cahier des charges.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-neutral-800 bg-darkCard rounded-sm overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between p-6 text-left text-white font-medium hover:text-accentGreen transition-colors duration-300 focus:outline-none">
-                        <span data-key="faq3-q">Proposez-vous la livraison à l'international ?</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-accentGreen transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content">
-                        <div data-key="faq3-a" class="p-6 pt-0 text-sm text-gray-400 font-light leading-relaxed border-t border-neutral-900/50">
-                            Oui, nous expédions nos créations et prototypes sécurisés partout en Europe et à l'international via des transporteurs express premium spécialisés, garantissant l'intégrité absolue de vos produits.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Nouvelles Questions Vierges Customisables -->
-                <div class="border border-neutral-800 bg-darkCard rounded-sm overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between p-6 text-left text-white font-medium hover:text-accentGreen transition-colors duration-300 focus:outline-none">
-                        <span data-key="faq4-q">Question additionnelle 1 (À modifier)</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-accentGreen transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content">
-                        <div data-key="faq4-a" class="p-6 pt-0 text-sm text-gray-400 font-light leading-relaxed border-t border-neutral-900/50">
-                            Réponse additionnelle 1 (À modifier).
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-neutral-800 bg-darkCard rounded-sm overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between p-6 text-left text-white font-medium hover:text-accentGreen transition-colors duration-300 focus:outline-none">
-                        <span data-key="faq5-q">Question additionnelle 2 (À modifier)</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-accentGreen transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content">
-                        <div data-key="faq5-a" class="p-6 pt-0 text-sm text-gray-400 font-light leading-relaxed border-t border-neutral-900/50">
-                            Réponse additionnelle 2 (À modifier).
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-neutral-800 bg-darkCard rounded-sm overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between p-6 text-left text-white font-medium hover:text-accentGreen transition-colors duration-300 focus:outline-none">
-                        <span data-key="faq6-q">Question additionnelle 3 (À modifier)</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-accentGreen transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content">
-                        <div data-key="faq6-a" class="p-6 pt-0 text-sm text-gray-400 font-light leading-relaxed border-t border-neutral-900/50">
-                            Réponse additionnelle 3 (À modifier).
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-neutral-800 bg-darkCard rounded-sm overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between p-6 text-left text-white font-medium hover:text-accentGreen transition-colors duration-300 focus:outline-none">
-                        <span data-key="faq7-q">Question additionnelle 4 (À modifier)</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-accentGreen transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content">
-                        <div data-key="faq7-a" class="p-6 pt-0 text-sm text-gray-400 font-light leading-relaxed border-t border-neutral-900/50">
-                            Réponse additionnelle 4 (À modifier).
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-neutral-800 bg-darkCard rounded-sm overflow-hidden">
-                    <button class="faq-toggle w-full flex items-center justify-between p-6 text-left text-white font-medium hover:text-accentGreen transition-colors duration-300 focus:outline-none">
-                        <span data-key="faq8-q">Question additionnelle 5 (À modifier)</span>
-                        <i data-lucide="chevron-down" class="w-5 h-5 text-accentGreen transition-transform duration-300"></i>
-                    </button>
-                    <div class="faq-content">
-                        <div data-key="faq8-a" class="p-6 pt-0 text-sm text-gray-400 font-light leading-relaxed border-t border-neutral-900/50">
-                            Réponse additionnelle 5 (À modifier).
-                        </div>
-                    </div>
-                </div>
+            <div class="input-group">
+              <textarea rows="3" placeholder="En quoi pouvons-nous vous aider ? (facultatif)"></textarea>
             </div>
+            <button type="submit" class="submit-btn">LANCER LA DISCUSSION →</button>
+          </form>
         </div>
-    </section>
+      </div>
 
-    <section id="contact" class="py-24 md:py-40">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <div class="space-y-8 fade-in-scroll flex flex-col items-center">
-                <div>
-                    <span class="text-xs font-semibold tracking-[0.2em] text-accentGreen uppercase block mb-2">Contact</span>
-                    <h2 data-key="contact-title" class="text-4xl md:text-6xl font-bold tracking-tight text-white font-montserrat mb-6">Discutons de votre vision.</h2>
-                </div>
-                
-                <p data-key="contact-desc" class="text-gray-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl mb-8">
-                    Vous avez un projet ? Envoyez-moi un message et des références et je vous enverrai un devis détaillé dans les 24h.
-                </p>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-3xl pt-4 text-left">
-                    <a href="mailto:Charly4Modeler@gmail.com" class="flex items-center space-x-5 bg-darkCard border border-neutral-900 rounded-sm p-6 group transition-all hover:border-accentGreen/40">
-                        <div class="w-14 h-14 bg-darkBg rounded-sm flex items-center justify-center text-accentGreen group-hover:bg-accentGreen group-hover:text-darkBg transition-colors shrink-0">
-                            <i class="fa-solid fa-envelope text-2xl"></i>
-                        </div>
-                        <div class="overflow-hidden">
-                            <p class="text-xs text-neutral-500 uppercase tracking-wider mb-1">Email</p>
-                            <span class="text-gray-200 font-medium tracking-wide group-hover:text-white transition-colors text-sm md:text-base break-all">Charly4Modeler@gmail.com</span>
-                        </div>
-                    </a>
-                    
-                    <a href="https://www.instagram.com/chaprints" target="_blank" rel="noopener noreferrer" class="flex items-center space-x-5 bg-darkCard border border-neutral-900 rounded-sm p-6 group transition-all hover:border-accentGreen/40">
-                        <div class="w-14 h-14 bg-darkBg rounded-sm flex items-center justify-center text-accentGreen group-hover:bg-accentGreen group-hover:text-darkBg transition-colors shrink-0">
-                            <i class="fa-brands fa-instagram text-3xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-neutral-500 uppercase tracking-wider mb-1">Instagram</p>
-                            <span class="text-gray-200 font-medium tracking-wide group-hover:text-white transition-colors text-sm md:text-base">@chaprints</span>
-                        </div>
-                    </a>
-                    
-                    <div class="flex items-center space-x-5 bg-darkCard border border-neutral-900 rounded-sm p-6">
-                        <div class="w-14 h-14 bg-darkBg rounded-sm flex items-center justify-center text-accentGreen shrink-0">
-                            <i class="fa-brands fa-discord text-2xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-neutral-500 uppercase tracking-wider mb-1">Discord</p>
-                            <span class="text-gray-200 font-medium tracking-wide text-sm md:text-base">4ch4_4_4</span>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center space-x-5 bg-darkCard border border-neutral-900 rounded-sm p-6">
-                        <div class="w-14 h-14 bg-darkBg rounded-sm flex items-center justify-center text-accentGreen shrink-0">
-                            <i class="fa-solid fa-location-dot text-2xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-neutral-500 uppercase tracking-wider mb-1">Localisation</p>
-                            <span data-key="contact-loc" class="text-gray-200 font-medium tracking-wide text-sm md:text-base">Paris, France</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="direct-channels">
+        <a href="mailto:hello@atelier.studio" class="channel-box">
+          <div class="channel-info">
+            <label>Écrire directement</label>
+            <span>hello@atelier.studio</span>
+          </div>
+          <span class="channel-action">↗</span>
+        </a>
+
+        <a href="#" class="channel-box">
+          <div class="channel-info">
+            <label>Réserver un appel (15 min)</label>
+            <span>Choisir un créneau dans l'agenda</span>
+          </div>
+          <span class="channel-action">↗</span>
+        </a>
+
+        <div class="reassurance-list">
+          <div class="reassurance-item">
+            <span style="color:var(--orange)">✓</span>
+            <span><b>Sans engagement :</b> Un premier échange pour voir si le courant passe.</span>
+          </div>
+          <div class="reassurance-item">
+            <span style="color:var(--orange)">✓</span>
+            <span><b>Pas de relance commerciale :</b> Vos données restent confidentielles.</span>
+          </div>
+          <div class="reassurance-item">
+            <span style="color:var(--orange)">✓</span>
+            <span><b>Estimation claire :</b> Nous validons votre budget ensemble avant toute suite.</span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <footer class="bg-darkBg border-t border-neutral-900 py-12">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="text-sm font-medium text-white tracking-wider">
-                C3D<span class="text-accentGreen">.</span> <span id="footer-rights" class="text-gray-600 font-light ml-2">© 2026 Tous droits réservés.</span>
-            </div>
-            <div class="flex space-x-6 text-sm text-gray-500 font-light">
-                <a href="mentions_legales.html" data-key="footer-legal" class="hover:text-white transition-colors">Mentions légales</a>
-                <a href="confidentialite.html" data-key="footer-privacy" class="hover:text-white transition-colors">Confidentialité</a>
-            </div>
-        </div>
-    </footer>
+<footer class="footer">
+  <div>© ATELIER STUDIO — STRASBOURG</div>
+  <div>SITES WEB & DIRECTION ARTISTIQUE</div>
+</footer>
 
-    <script>
-        // --- DICTIONNAIRE DE TRADUCTIONS ---
-        const translations = {
-            fr: {
-                "meta-title": "C3D | Impression 3D & Solutions Digitales Premium",
-                "nav-services": "SERVICES",
-                "nav-projects": "PROJETS",
-                "nav-reviews": "AVIS",
-                "nav-faq": "FAQ",
-                "nav-contact": "CONTACT",
-                "hero-subtitle": "Modélisation et impression 3D",
-                "hero-title": "CONCEVOIR <br><span class='text-white'>VOS PROJETS.</span>",
-                "hero-desc": "Artisan numérique, je donne vie à vos projets. De la conception sur mesure à la modification de vos fichiers, je maîtrise tout le processus jusqu'à l'impression 3D. Du pixel à la matière, je transforme vos idées en objets réels avec la précision du sur-mesure.",
-                "services-title": "Mes Services",
-                "service1-title": "Modélisation 3D",
-                "service1-desc": "Donnez vie à vos idées, même sans fichier de départ. Que vous partiez d'une simple idée (croquis, photos, références) ou d'un fichier 3D existant à adapter, je réalise vos projets sur mesure. Je conçois vos modèles de A à Z ou j'ajuste vos fichiers actuels pour les rendre parfaitement prêts à l'impression. Confiez-moi vos concepts, je les transforme en fichiers 3D optimisés et prêts à prendre forme.",
-                "service2-title": "Impression 3D",
-                "service2-desc": "Impression(s) 3D en PLA/PETG/ABS, unicolore ou multicolore à partir d'un ou plusieurs modèles de ma bibliothèque, que j'ai réalisé pour vous ou en votre possession préalable. Bénéficiez d'une réactivité totale pour vos validations de formes, de fonctions et d'assemblages complexes avant l'industrialisation.",
-                "service3-title": "Post-traitement",
-                "service3-desc": "Passez de la pièce brute à l'objet d'art. Parce qu'une bonne impression ne fait pas tout, je prends en charge l'étape cruciale du post-traitement pour donner à vos pièces un aspect professionnel et impeccable. Ponçage minutieux, application de vernis protecteur et mise en peinture personnalisée : je sublime chaque détail pour effacer les lignes d'impression et offrir à vos objets un rendu visuel et tactile haut de gamme.",
-                "btn-contact-services": "ME CONTACTER",
-                "projects-subtitle": "Réalisations",
-                "projects-title": "Projets Finis",
-                "proj1-tag": "Prototype Automobile",
-                "proj1-title": "Pièce aérodynamique en Carbone",
-                "proj2-tag": "Design Industriel",
-                "proj2-title": "Boîtier électronique premium",
-                "proj3-tag": "Secteur Médical",
-                "proj3-title": "Prothèse mécanique Haute Précision",
-                "btn-all-projects": "VOIR TOUS LES PROJETS",
-                "reviews-subtitle": "Retours d'expérience",
-                "reviews-heading": "Ce que disent mes clients.",
-                "reviews-global": "Note globale du studio",
-                "reviews-certified": "Basé sur vos retours clients.",
-                "form-title": "Laisser un avis",
-                "form-label-name": "Votre nom / Entreprise",
-                "form-label-rating": "Note",
-                "form-label-comment": "Votre commentaire",
-                "form-btn-submit": "PUBLIER L'AVIS",
-                "faq-subtitle": "Des questions ?",
-                "faq-title": "Foire Aux Questions",
-                "faq1-q": "Quels formats de fichiers acceptez-vous pour l'impression 3D ?",
-                "faq1-a": "Nous acceptons principalement les formats de fichiers standard de l'industrie comme les fichiers .STL, .STEP, .IGS et .OBJ. Si vous possédez un format natif spécifique (SolidWorks, Fusion360), notre équipe peut s'occuper de la conversion.",
-                "faq2-q": "Quels sont vos délais moyens de fabrication ?",
-                "faq2-a": "Pour les prototypes simples, nos délais d'impression et de traitement standard varient entre 48 et 72 heures. Pour des séries industrielles ou des pièces exigeant de lourdes finitions manuelles, un calendrier précis vous sera communiqué à l'analyse de votre cahier des charges.",
-                "faq3-q": "Proposez-vous la livraison à l'international ?",
-                "faq3-a": "Oui, nous expédions nos créations et prototypes sécurisés partout en Europe et à l'international via des transporteurs express premium spécialisés, garantissant l'intégrité absolue de vos produits.",
-                "faq4-q": "Question additionnelle 1 (À modifier)",
-                "faq4-a": "Réponse additionnelle 1 (À modifier).",
-                "faq5-q": "Question additionnelle 2 (À modifier)",
-                "faq5-a": "Réponse additionnelle 2 (À modifier).",
-                "faq6-q": "Question additionnelle 3 (À modifier)",
-                "faq6-a": "Réponse additionnelle 3 (À modifier).",
-                "faq7-q": "Question additionnelle 4 (À modifier)",
-                "faq7-a": "Réponse additionnelle 4 (À modifier).",
-                "faq8-q": "Question additionnelle 5 (À modifier)",
-                "faq8-a": "Réponse additionnelle 5 (À modifier).",
-                "contact-title": "Discutons de votre vision.",
-                "contact-desc": "Vous avez un projet ? Envoyez-moi un message et des références et je vous enverrai un devis détaillé dans les 24h.",
-                "contact-loc": "Paris, France",
-                "footer-rights": "© 2026 Tous droits réservés.",
-                "footer-legal": "Mentions légales",
-                "footer-privacy": "Confidentialité",
-                "alert-review-success": "Merci ! Votre avis a été ajouté."
-            },
-            en: {
-                "meta-title": "C3D | 3D Printing & Premium Digital Solutions",
-                "nav-services": "SERVICES",
-                "nav-projects": "PROJECTS",
-                "nav-reviews": "REVIEWS",
-                "nav-faq": "FAQ",
-                "nav-contact": "CONTACT",
-                "hero-subtitle": "Modeling and 3D Printing",
-                "hero-title": "DESIGNING <br><span class='text-white'>YOUR PROJECTS.</span>",
-                "hero-desc": "Digital craftsman, I bring your projects to life. From custom design to file modifications, I master the entire process up to 3D printing. From pixel to matter, I transform your ideas into real objects with tailor-made precision.",
-                "services-title": "My Services",
-                "service1-title": "3D Modeling",
-                "service1-desc": "Bring your ideas to life, even without a starting file. Whether you start from a simple idea (sketches, photos, references) or an existing 3D file to adapt, I create custom projects for you. I design your models from scratch or adjust your current files to make them perfectly ready for printing. Trust me with your concepts, I turn them into optimized 3D files ready to take shape.",
-                "service2-title": "3D Printing",
-                "service2-desc": "3D printing in PLA/PETG/ABS, single or multi-color from library models that I made for you or previously in your possession. Benefit from total responsiveness for your validations of shapes, functions and complex assemblies before industrialization.",
-                "service3-title": "Post-processing",
-                "service3-desc": "Go from raw part to work of art. Because a good print isn't everything, I take care of the crucial step of post-processing to give your pieces a professional and flawless appearance. Careful sanding, protective varnish application and custom painting: I enhance every detail to erase print lines and offer your objects a high-end visual and tactile finish.",
-                "btn-contact-services": "CONTACT ME",
-                "projects-subtitle": "Achievements",
-                "projects-title": "Finished Projects",
-                "proj1-tag": "Automotive Prototype",
-                "proj1-title": "Carbon Aerodynamic Part",
-                "proj2-tag": "Industrial Design",
-                "proj2-title": "Premium Electronic Enclosure",
-                "proj3-tag": "Medical Sector",
-                "proj3-title": "High-Precision Mechanical Prosthesis",
-                "btn-all-projects": "VIEW ALL PROJECTS",
-                "reviews-subtitle": "Customer Feedback",
-                "reviews-heading": "What my clients say.",
-                "reviews-global": "Studio overall rating",
-                "reviews-certified": "Based on user feedback.",
-                "form-title": "Leave a review",
-                "form-label-name": "Your name / Company",
-                "form-label-rating": "Rating",
-                "form-label-comment": "Your comment",
-                "form-btn-submit": "PUBLISH REVIEW",
-                "faq-subtitle": "Any questions?",
-                "faq-title": "Frequently Asked Questions",
-                "faq1-q": "What file formats do you accept for 3D printing?",
-                "faq1-a": "We mainly accept industry-standard file formats such as .STL, .STEP, .IGS, and .OBJ. If you have a specific native format (SolidWorks, Fusion360), our team can handle the conversion.",
-                "faq2-q": "What are your average manufacturing lead times?",
-                "faq2-a": "For simple prototypes, our standard printing and processing times range between 48 and 72 hours. For industrial series or parts requiring heavy manual finishes, a precise schedule will be provided upon analyzing your specifications.",
-                "faq3-q": "Do you offer international shipping?",
-                "faq3-a": "Yes, we ship our secure creations and prototypes anywhere in Europe and internationally via specialized premium express carriers, ensuring the absolute integrity of your products.",
-                "faq4-q": "Additional Question 1 (To edit)",
-                "faq4-a": "Additional Answer 1 (To edit).",
-                "faq5-q": "Additional Question 2 (To edit)",
-                "faq5-a": "Additional Answer 2 (To edit).",
-                "faq6-q": "Additional Question 3 (To edit)",
-                "faq6-a": "Additional Answer 3 (To edit).",
-                "faq7-q": "Additional Question 4 (To edit)",
-                "faq7-a": "Additional Answer 4 (To edit).",
-                "faq8-q": "Additional Question 5 (To edit)",
-                "faq8-a": "Additional Answer 5 (To edit).",
-                "contact-title": "Let's discuss your vision.",
-                "contact-desc": "Have a project? Send me a message with references and I will send you a detailed quote within 24 hours.",
-                "contact-loc": "Paris, France",
-                "footer-rights": "© 2026 All rights reserved.",
-                "footer-legal": "Legal Notice",
-                "footer-privacy": "Privacy Policy",
-                "alert-review-success": "Thank you! Your review has been added."
-            }
-        };
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.1 });
 
-        let currentLang = 'fr';
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.documentElement.lang = lang;
-            
-            document.getElementById('lang-selector').value = lang;
-            document.getElementById('lang-selector-mobile').value = lang;
-
-            document.querySelectorAll('[data-key]').forEach(elem => {
-                const key = elem.getAttribute('data-key');
-                if (translations[lang][key]) {
-                    elem.innerHTML = translations[lang][key];
-                }
-            });
-
-            document.getElementById('hero-title').innerHTML = translations[lang]['hero-title'];
-            document.getElementById('contact-title').innerHTML = translations[lang]['contact-title'];
-            document.title = translations[lang]['meta-title'];
-            
-            document.getElementById('footer-rights').innerText = translations[lang]['footer-rights'];
-            document.getElementById('reviews-certified').innerText = translations[lang]['reviews-certified'];
-        }
-
-        document.getElementById('lang-selector').addEventListener('change', (e) => changeLanguage(e.target.value));
-        document.getElementById('lang-selector-mobile').addEventListener('change', (e) => changeLanguage(e.target.value));
-
-        // Initialisation des icônes Lucide
-        lucide.createIcons();
-
-        // Gestion du Menu Mobile
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            const isOpen = !mobileMenu.classList.contains('hidden');
-            menuBtn.innerHTML = isOpen ? `<i data-lucide="x" class="w-6 h-6"></i>` : `<i data-lucide="menu" class="w-6 h-6"></i>`;
-            lucide.createIcons();
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuBtn.innerHTML = `<i data-lucide="menu" class="w-6 h-6"></i>`;
-                lucide.createIcons();
-            });
-        });
-
-        // Effet du Header au Scroll
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 10px 30px -10px rgba(0,0,0,0.7)';
-            } else {
-                header.style.boxShadow = 'none';
-            }
-        });
-
-        // Animation au Scroll
-        const fadeElements = document.querySelectorAll('.fade-in-scroll');
-        const observerOptions = { root: null, threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        fadeElements.forEach(el => observer.observe(el));
-
-        // --- GESTION DES FAQ ---
-        const faqToggles = document.querySelectorAll('.faq-toggle');
-        faqToggles.forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const content = toggle.nextElementSibling;
-                const icon = toggle.querySelector('i');
-                
-                document.querySelectorAll('.faq-content').forEach(otherContent => {
-                    if (otherContent !== content && otherContent.style.maxHeight) {
-                        otherContent.style.maxHeight = null;
-                        otherContent.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
-                    }
-                });
-                
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                    icon.style.transform = 'rotate(0deg)';
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-        // --- STRUCTURE ET GESTION UNIQUE DES IMAGES DE PROJETS ---
-        const projectsData = [
-            {
-                title: "Pièce aérodynamique en Carbone",
-                tag: "Prototype Automobile",
-                dataKeyTag: "proj1-tag",
-                dataKeyTitle: "proj1-title",
-                images: [
-                    "C:\\Users\\Charly\\Desktop\\Website\\Images\\1.jpg", 
-                    "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1200"
-                ],
-                currentImgIdx: 0
-            },
-            {
-                title: "Boîtier électronique premium",
-                tag: "Design Industriel",
-                dataKeyTag: "proj2-tag",
-                dataKeyTitle: "proj2-title",
-                images: [
-                    "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=1200"
-                ],
-                currentImgIdx: 0
-            },
-            {
-                title: "Prothèse mécanique Haute Précision",
-                tag: "Secteur Médical",
-                dataKeyTag: "proj3-tag",
-                dataKeyTitle: "proj3-title",
-                images: [
-                    "https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&q=80&w=1200",
-                    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1200"
-                ],
-                currentImgIdx: 0
-            }
-        ];
-
-        const slider = document.getElementById('slider');
-        const prevBtn = document.getElementById('prev-slide');
-        const nextBtn = document.getElementById('next-slide');
-        const dotsContainer = document.getElementById('dots-container');
-        let currentProjectIdx = 0;
-
-        function buildProjectsSlider() {
-            slider.innerHTML = '';
-            dotsContainer.innerHTML = '';
-
-            projectsData.forEach((project, pIdx) => {
-                const slide = document.createElement('div');
-                slide.className = 'w-full shrink-0 relative project-slide';
-                slide.setAttribute('data-project-idx', pIdx);
-
-                const imgWrapper = document.createElement('div');
-                imgWrapper.className = 'project-images-wrapper w-full h-full relative';
-
-                project.images.forEach((imgUrl, iIdx) => {
-                    const img = document.createElement('img');
-                    img.src = imgUrl;
-                    img.alt = `${project.title} - Img ${iIdx + 1}`;
-                    img.className = `w-full h-full object-cover absolute inset-0 transition-opacity duration-300 ${iIdx === project.currentImgIdx ? 'current-sub-img' : 'opacity-0'}`;
-                    imgWrapper.appendChild(img);
-                });
-
-                const overlay = document.createElement('div');
-                overlay.className = 'absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-8 text-left cursor-zoom-in trigger-lightbox';
-                overlay.innerHTML = `
-                    <p data-key="${project.dataKeyTag}" class="text-accentGreen text-xs font-bold uppercase tracking-wider mb-1">${project.tag}</p>
-                    <h3 data-key="${project.dataKeyTitle}" class="text-white text-2xl font-semibold mb-8">${project.title}</h3>
-                `;
-                
-                overlay.addEventListener('click', () => {
-                    lightboxProjectIdx = pIdx;
-                    lightboxImageIdx = projectsData[pIdx].currentImgIdx;
-                    openLightboxView();
-                });
-
-                const subDotsContainer = document.createElement('div');
-                subDotsContainer.className = 'absolute bottom-6 right-6 z-20 flex space-x-3 sub-dots-container';
-
-                project.images.forEach((_, iIdx) => {
-                    const subDotWrapper = document.createElement('button');
-                    subDotWrapper.className = `w-5 h-5 flex items-center justify-center rounded-full focus:outline-none z-30 transition-transform hover:scale-110`;
-                    
-                    const dotInner = document.createElement('span');
-                    dotInner.className = `w-2.5 h-2.5 rounded-full border border-white/40 transition-all ${iIdx === project.currentImgIdx ? 'bg-accentGreen w-5 border-transparent' : 'bg-black/50'}`;
-                    
-                    subDotWrapper.appendChild(dotInner);
-                    subDotWrapper.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        switchSubImage(pIdx, iIdx);
-                    });
-                    subDotsContainer.appendChild(subDotWrapper);
-                });
-
-                slide.appendChild(imgWrapper);
-                slide.appendChild(overlay);
-                slide.appendChild(subDotsContainer);
-                slider.appendChild(slide);
-
-                const dot = document.createElement('button');
-                dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${pIdx === 0 ? 'bg-accentGreen w-6' : 'bg-neutral-700'}`;
-                dot.addEventListener('click', () => goToProject(pIdx));
-                dotsContainer.appendChild(dot);
-            });
-        }
-
-        function switchSubImage(pIdx, iIdx) {
-            projectsData[pIdx].currentImgIdx = iIdx;
-            const slides = document.querySelectorAll('.project-slide');
-            const slide = slides[pIdx];
-            
-            const imgs = slide.querySelectorAll('.project-images-wrapper img');
-            imgs.forEach((img, idx) => {
-                if(idx === iIdx) {
-                    img.classList.remove('opacity-0');
-                    img.classList.add('current-sub-img');
-                } else {
-                    img.classList.add('opacity-0');
-                    img.classList.remove('current-sub-img');
-                }
-            });
-
-            const sDotSpans = slide.querySelectorAll('.sub-dots-container button span');
-            sDotSpans.forEach((span, idx) => {
-                if(idx === iIdx) {
-                    span.classList.add('bg-accentGreen', 'w-5', 'border-transparent');
-                    span.classList.remove('bg-black/50');
-                } else {
-                    span.classList.remove('bg-accentGreen', 'w-5', 'border-transparent');
-                    span.classList.add('bg-black/50');
-                }
-            });
-        }
-
-        function updateSlider() {
-            slider.style.transform = `translateX(-${currentProjectIdx * 100}%)`;
-            const mainDots = dotsContainer.children;
-            Array.from(mainDots).forEach((dot, idx) => {
-                if (idx === currentProjectIdx) {
-                    dot.classList.add('bg-accentGreen', 'w-6');
-                    dot.classList.remove('bg-neutral-700');
-                } else {
-                    dot.classList.remove('bg-accentGreen', 'w-6');
-                    dot.classList.add('bg-neutral-700');
-                }
-            });
-        }
-
-        function goToProject(index) {
-            currentProjectIdx = index;
-            updateSlider();
-        }
-
-        nextBtn.addEventListener('click', () => {
-            currentProjectIdx = (currentProjectIdx + 1) % projectsData.length;
-            updateSlider();
-        });
-
-        prevBtn.addEventListener('click', () => {
-            currentProjectIdx = (currentProjectIdx - 1 + projectsData.length) % projectsData.length;
-            updateSlider();
-        });
-
-        // --- LIGHTBOX MODAL ---
-        const lightboxModal = document.getElementById('lightbox-modal');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxTitle = document.getElementById('lightbox-title');
-        const lightboxSubDots = document.getElementById('lightbox-sub-dots');
-        const closeLightbox = document.getElementById('close-lightbox');
-        const lightboxPrev = document.getElementById('lightbox-prev');
-        const lightboxNext = document.getElementById('lightbox-next');
-        
-        let lightboxProjectIdx = 0;
-        let lightboxImageIdx = 0;
-
-        function openLightboxView() {
-            lightboxModal.classList.remove('hidden');
-            lightboxModal.classList.add('flex');
-            document.body.classList.add('overflow-hidden');
-            updateLightboxContent();
-        }
-
-        function updateLightboxContent() {
-            const project = projectsData[lightboxProjectIdx];
-            lightboxImg.src = project.images[lightboxImageIdx];
-            lightboxTitle.innerText = `${project.title} (${lightboxImageIdx + 1}/${project.images.length})`;
-            
-            lightboxSubDots.innerHTML = '';
-            project.images.forEach((_, idx) => {
-                const dot = document.createElement('button');
-                dot.className = `w-3 h-3 rounded-full transition-all ${idx === lightboxImageIdx ? 'bg-accentGreen w-6' : 'bg-neutral-600'}`;
-                dot.addEventListener('click', () => {
-                    lightboxImageIdx = idx;
-                    updateLightboxContent();
-                });
-                lightboxSubDots.appendChild(dot);
-            });
-        }
-
-        function lightboxNextAction() {
-            const project = projectsData[lightboxProjectIdx];
-            if (lightboxImageIdx < project.images.length - 1) {
-                lightboxImageIdx++;
-            } else {
-                lightboxProjectIdx = (lightboxProjectIdx + 1) % projectsData.length;
-                lightboxImageIdx = 0;
-            }
-            updateLightboxContent();
-        }
-
-        function lightboxPrevAction() {
-            if (lightboxImageIdx > 0) {
-                lightboxImageIdx--;
-            } else {
-                lightboxProjectIdx = (lightboxProjectIdx - 1 + projectsData.length) % projectsData.length;
-                lightboxImageIdx = projectsData[lightboxProjectIdx].images.length - 1;
-            }
-            updateLightboxContent();
-        }
-
-        lightboxNext.addEventListener('click', lightboxNextAction);
-        lightboxPrev.addEventListener('click', lightboxPrevAction);
-
-        closeLightbox.addEventListener('click', () => {
-            lightboxModal.classList.add('hidden');
-            lightboxModal.classList.remove('flex');
-            document.body.classList.remove('overflow-hidden');
-            switchSubImage(lightboxProjectIdx, lightboxImageIdx);
-            goToProject(lightboxProjectIdx);
-        });
-
-        lightboxModal.addEventListener('click', (e) => {
-            if(e.target === lightboxModal) closeLightbox.click();
-        });
-
-        window.addEventListener('keydown', (e) => {
-            if (!lightboxModal.classList.contains('hidden')) {
-                if (e.key === "Escape") closeLightbox.click();
-                if (e.key === "ArrowRight") lightboxNextAction();
-                if (e.key === "ArrowLeft") lightboxPrevAction();
-            }
-        });
-
-        // --- GESTION DE LA SECTION AVIS DYNAMIQUE ---
-        const reviewForm = document.getElementById('review-form');
-        const reviewsList = document.getElementById('reviews-list');
-        const noReviewsMsg = document.getElementById('no-reviews-msg');
-        const reviewTextarea = document.getElementById('review-text');
-        const charCounter = document.getElementById('char-counter');
-
-        reviewTextarea.addEventListener('input', function() {
-            const currentLen = this.value.length;
-            charCounter.innerText = `${currentLen} / 300`;
-            if (currentLen >= 280) {
-                charCounter.className = "text-[11px] text-amber-500 font-medium";
-            } else {
-                charCounter.className = "text-[11px] text-neutral-500 font-light";
-            }
-        });
-
-        function generateStarHTML(ratingStr) {
-            const rating = parseFloat(ratingStr);
-            let starsHTML = '';
-            for (let i = 1; i <= 5; i++) {
-                if (rating >= i) {
-                    starsHTML += '★';
-                } else if (rating == i - 0.5) {
-                    starsHTML += '½'; 
-                } else {
-                    starsHTML += '☆';
-                }
-            }
-            return starsHTML;
-        }
-
-        function updateGlobalRatingAverage(reviews) {
-            const globalValueElem = document.getElementById('global-rating-value');
-            const globalStarsElem = document.getElementById('global-rating-stars');
-            
-            if (!reviews || reviews.length === 0) {
-                globalValueElem.innerText = "5.0";
-                globalStarsElem.innerText = "★★★★★";
-                return;
-            }
-
-            let totalPoints = 0;
-            reviews.forEach(r => {
-                totalPoints += parseFloat(r.rating);
-            });
-
-            const average = (totalPoints / reviews.length).toFixed(1);
-            globalValueElem.innerText = average;
-
-            let avgStarsStr = '';
-            const roundedAvg = Math.round(average * 2) / 2;
-            for(let i=1; i<=5; i++) {
-                if(roundedAvg >= i) avgStarsStr += '★';
-                else if(roundedAvg == i - 0.5) avgStarsStr += '½';
-                else avgStarsStr += '☆';
-            }
-            globalStarsElem.innerText = avgStarsStr;
-        }
-
-        function loadStoredReviews() {
-            const savedReviews = localStorage.getItem('charly3d_reviews');
-            if (savedReviews) {
-                const reviews = JSON.parse(savedReviews);
-                if (reviews.length > 0 && noReviewsMsg) {
-                    noReviewsMsg.remove();
-                }
-                reviews.forEach(review => {
-                    displayReviewInDOM(review.name, review.rating, review.comment, false);
-                });
-                updateGlobalRatingAverage(reviews);
-            }
-        }
-
-        function displayReviewInDOM(name, rating, text, animate = true) {
-            const stars = generateStarHTML(rating);
-            const newReview = document.createElement('div');
-            newReview.className = `bg-darkCard p-6 rounded-sm border border-neutral-900 ${animate ? 'opacity-0 transform translate-y-4' : ''} transition-all duration-500 text-left`;
-            newReview.innerHTML = `
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="text-white font-medium">${name}</h4>
-                    <div class="flex text-accentGreen text-sm tracking-wider">${stars}</div>
-                </div>
-                <p class="text-gray-400 text-sm font-light leading-relaxed">"${text}"</p>
-            `;
-
-            reviewsList.insertBefore(newReview, reviewsList.firstChild);
-
-            if (animate) {
-                setTimeout(() => {
-                    newReview.classList.remove('opacity-0', 'translate-y-4');
-                }, 50);
-            }
-        }
-
-        reviewForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('review-name').value.trim();
-            const rating = document.getElementById('review-rating').value;
-            const text = reviewTextarea.value.trim();
-            
-            if(document.getElementById('no-reviews-msg')) {
-                document.getElementById('no-reviews-msg').remove();
-            }
-
-            const newReviewData = {
-                name: name,
-                rating: rating,
-                comment: text,
-                date: new Date().toLocaleString('fr-FR')
-            };
-
-            let reviews = [];
-            const savedReviews = localStorage.getItem('charly3d_reviews');
-            if(savedReviews) {
-                reviews = JSON.parse(savedReviews);
-            }
-            reviews.push(newReviewData);
-            localStorage.setItem('charly3d_reviews', JSON.stringify(reviews));
-
-            displayReviewInDOM(name, rating, text, true);
-            updateGlobalRatingAverage(reviews);
-
-            reviewForm.reset();
-            charCounter.innerText = "0 / 300";
-            alert(translations[currentLang]['alert-review-success']);
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            buildProjectsSlider();
-            loadStoredReviews();
-        });
-    </script>
 </body>
 </html>

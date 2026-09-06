@@ -312,15 +312,23 @@ h1, h2, h3, h4, p, a, li, label, span{max-width:100%;overflow-wrap:anywhere;word
         <div>
           <h3>Envoyer un mot rapide</h3>
           <p>Pas de cahier des charges à remplir. Dites-nous juste ce que vous cherchez à faire, on vous répond sous 24h.</p>
-          <form class="mini-form" onsubmit="event.preventDefault();">
-            <div class="input-group">
-              <input type="email" placeholder="Votre adresse email" required>
-            </div>
-            <div class="input-group">
-              <textarea rows="3" placeholder="En quoi pouvons-nous vous aider ? (facultatif)"></textarea>
-            </div>
-            <button type="submit" class="submit-btn">LANCER LA DISCUSSION →</button>
-          </form>
+          <form class="mini-form" action="https://api.web3forms.com/submit" method="POST">
+  <!-- Votre clé d'accès Web3Forms -->
+  <input type="hidden" name="access_key" value="aa19cbe8-265a-4b1e-8d54-7e08e70ca81b">
+
+  <!-- Protection anti-spam transparente (optionnel mais recommandé) -->
+  <input type="checkbox" name="botcheck" style="display: none;">
+
+  <div class="input-group">
+    <input type="email" name="email" placeholder="Votre adresse email" required>
+  </div>
+  
+  <div class="input-group">
+    <textarea name="message" rows="3" placeholder="En quoi pouvons-nous vous aider ? (facultatif)"></textarea>
+  </div>
+  
+  <button type="submit" class="submit-btn">LANCER LA DISCUSSION →</button>
+</form>
         </div>
       </div>
 
